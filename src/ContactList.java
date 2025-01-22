@@ -46,37 +46,26 @@ public class ContactList {
 
     public void sort(int sortBy){
         int n = contacts.size();
-        Person p;
+        String toCompare1 = "";
+        String toCompare2 = "";
 
         if(sortBy == 0) {
             for(int i = 0; i < n-1 ; i++){
                 for(int j = 0; j < n - 1 - i; j++){
-                    if((contacts.get(j).getFirstName().compareTo(contacts.get(j+1).getFirstName())) > 0) {
-                        p = contacts.get(j);
-                        contacts.set(j, contacts.get(j + 1));
-                        contacts.set(j + 1, p);
+                    if(sortBy == 0) {
+                        toCompare1 = contacts.get(j).getFirstName();
+                        toCompare2 = contacts.get(j+1).getFirstName();
                     }
-                }
-            }
-        }
-
-        if(sortBy == 1) {
-            for(int i = 0; i < n-1 ; i++){
-                for(int j = 0; j < n - 1 - i; j++){
-                    if((contacts.get(j).getLastName().compareTo(contacts.get(j+1).getLastName())) > 0) {
-                        p = contacts.get(j);
-                        contacts.set(j, contacts.get(j + 1));
-                        contacts.set(j + 1, p);
+                    else if(sortBy == 1) {
+                        toCompare1 = contacts.get(j).getLastName();
+                        toCompare2 = contacts.get(j+1).getLastName();
                     }
-                }
-            }
-        }
-
-        if(sortBy == 2) {
-            for(int i = 0; i < n-1 ; i++){
-                for(int j = 0; j < n - 1 - i; j++){
-                    if((contacts.get(j).getPhoneNumber().compareTo(contacts.get(j+1).getPhoneNumber())) > 0) {
-                        p = contacts.get(j);
+                    else{
+                        toCompare1 = contacts.get(j).getPhoneNumber();
+                        toCompare2 = contacts.get(j+1).getPhoneNumber();
+                    }
+                    if((toCompare1.compareTo(toCompare2)) > 0) {
+                        Person p = contacts.get(j);
                         contacts.set(j, contacts.get(j + 1));
                         contacts.set(j + 1, p);
                     }
@@ -128,9 +117,7 @@ public class ContactList {
             i = input.nextInt();
             input.nextLine();
 
-            if(i == 0) {
-                break;
-            }
+
             if(i == 1){
                 System.out.println("Select a type of contact to add:");
                 System.out.println("1. Student");
@@ -140,18 +127,21 @@ public class ContactList {
                 addContactHelper(input, type);
             }
 
-            if(i >=2 && i <=4){
+            else if(i >=2 && i <=4){
                 sort(i-2);
                 printContacts();
             }
 
-            if(i == 5){
+            else if(i == 5){
                 listStudents();
             }
 
-            if(i >= 6 && i <= 8){
+            else if(i >= 6 && i <= 8){
                 String toPrint = searchHelper(input, i-6);
                 System.out.println(toPrint);
+            }
+            if(i == 0) {
+                break;
             }
         }
     }
